@@ -5,7 +5,7 @@ export default {
   state: {
     list: [],
   },
-  getters: {
+  getters: {   // отдает переменные из  state
     articlesList({ list }) {
       return list;
     }

@@ -1,19 +1,17 @@
 <template>
   <BContainer>
-    <h3>Movies</h3>
-    <NewsList />
-    <div>Pagination</div>
+    <div class="mb-3 mt-3">
+      <router-link class="p-2" to="/">Главная</router-link>
+      <router-link class="p-2" to="/news">Новости</router-link>
+      <router-link class="p-2" to="/weather">Weather</router-link>
+    </div>
+    <router-view class="abra-cad"></router-view>
   </BContainer>
 </template>
 
 <script>
-import NewsList from './components/NewsList.vue';
-
 export default {
-  name: 'App',
-  components: {
-    NewsList,
-  },
+  name: 'App'
 }
 </script>
 
