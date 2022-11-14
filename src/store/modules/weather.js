@@ -1,3 +1,5 @@
+import weatherApi from '@/plugins/axios/weatherApi';
+
 export default {
   namespaced: true,
   state: {
@@ -117,7 +119,29 @@ export default {
       return list;
     },
   },
-  mutations: {},
-  actions: {},
-  
+  mutations: {
+    SAVE_WEATHER(state, payload) {
+      console.log(state);
+      console.log('>>>>', payload);
+      state.list = payload.list;
+    }
+  },
+  actions: {
+    async fetchWeather({ commit }) {
+      const result = await weatherApi.get('', {
+        params: {
+          lat: 50.404815,
+          lon: 30.651682,
+          units: 'metric',
+          lang: 'ru'
+        }
+      }).then(response => {
+        console.log('0====00 ',response);
+        return response.data;
+      });
+      commit('SAVE_WEATHER', result);
+    }
+  },
+
 };
+

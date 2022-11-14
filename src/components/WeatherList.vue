@@ -3,8 +3,9 @@
 
     <template v-if="forecastList.length">
       <h2>Weather Kyiv </h2>
+      
       <BCol cols="3" v-for="(item, idx) in forecastList" :key="`idx-${idx}`">
-        
+
         <WeatherListItem :forecast="item"/>
       </BCol>
 

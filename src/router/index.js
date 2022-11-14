@@ -3,7 +3,8 @@ import Vue from "vue";
 import MainPage from "@/pages/MainPage";
 
 import NewsPage from '@/pages/NewsPage';
-import WeatherPage from '@/pages/WeatherPage'
+import WeatherPage from '@/pages/WeatherPage';
+import TicketsPage from '@/pages/TicketsPage';
 
 
 Vue.use(VueRouter);
@@ -24,6 +25,12 @@ const routes = [
     name: "my-weather-page",
     component: WeatherPage,
   },
+  {
+    path: "/tickets",
+    name: "my-tickets-page",
+    component: TicketsPage,
+  },
+
 ];
 
 const router = new VueRouter({

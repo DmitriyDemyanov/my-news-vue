@@ -1,4 +1,4 @@
-import axios from '@/plugins/axios/index';
+import axios from '@/plugins/axios/newsApi';
 
 export default {
   namespaced: true,
@@ -17,10 +17,11 @@ export default {
   },
   actions: {
     async fetchArticle({ commit }) {
-      const result = await axios.get('/?country=ua&category=technology').then(response => {
-        console.log('000 ',response);
-        return response.data;
-      });
+      const result = await axios.get('/?country=ua&category=technology')
+        .then(response => {
+          console.log('000 ',response);
+          return response.data;
+        });
       setTimeout(() => commit('SAVE_NEWS', result.articles), 5000);
     }
   },
