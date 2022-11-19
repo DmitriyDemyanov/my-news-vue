@@ -6,5 +6,8 @@ export default {
       lastname: 'Ivanov',
       gender: 'man',
     }]
-  }
-}
+  },
+  getters: {},
+  mutations: {},
+  actions: {},
+};

@@ -1,5 +1,6 @@
 <template>
   <BContainer>
+    
     <div class="mb-3 mt-3">
       <router-link class="p-2" to="/">Главная</router-link>
       <router-link class="p-2" to="/news">Новости</router-link>

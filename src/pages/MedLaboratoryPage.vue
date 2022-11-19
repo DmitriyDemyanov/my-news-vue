@@ -1,14 +1,19 @@
 <template>
   <div>
-    <h2>Фарма</h2>
+    <h2>Фoрма</h2>
   </div>
 </template>
 
+
+
 <script>
 export default {
-  name: 'MedLaboratory',
+  name: 'MedLaboratoryPage',
+
 }
 </script>
+
+
 
 
 <style scoped>
