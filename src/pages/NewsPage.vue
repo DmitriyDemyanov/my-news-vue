@@ -12,8 +12,8 @@ import NewsList from '@/components/NewsList';
 export default {
   name: 'NewsPage',
   components: {
-    NewsList
-  }
+    NewsList,
+  },
 }
 </script>
 

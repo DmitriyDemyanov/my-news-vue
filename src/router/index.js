@@ -5,7 +5,7 @@ import MainPage from "@/pages/MainPage";
 import NewsPage from '@/pages/NewsPage';
 import WeatherPage from '@/pages/WeatherPage';
 import TicketsPage from '@/pages/TicketsPage';
-import MedLaboratoryPage from '@/pages/MedLaboratoryPage';
+import MedCenterPage from '@/pages/MedCenterPage'
 
 Vue.use(VueRouter);
 
@@ -33,7 +33,7 @@ const routes = [
   {
     path: "/laboratory",
     name: "my-laboratory-page",
-    component: MedLaboratoryPage,
+    component: MedCenterPage,
   }
 
 
