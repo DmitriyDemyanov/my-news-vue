@@ -3,7 +3,7 @@
 
 
     <div v-for="(ticket, key) in airTickets" :key="key">
-      
+
       <TicketListItem :ticket='ticket'/>
     </div>
 
@@ -13,7 +13,7 @@
 
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 import TicketListItem from '@/components/TicketListItem';
 
 export default {
@@ -24,12 +24,6 @@ export default {
   components: {
     TicketListItem,
   },
-  methods: {
-    ...mapActions('tickets', ['fetchTickets'])
-  },
-  mounted() {
-    this.fetchTickets();
-  }
 };
 </script>
 

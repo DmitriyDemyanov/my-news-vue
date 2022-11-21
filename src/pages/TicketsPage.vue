@@ -13,11 +13,20 @@
       </div>
 
     </BContainer>
+
     <BRow class="align-items-start">
+
       <TicketsList class="col-md-9" />
+
       <div class="col-md-3 d-flex flex-column">
-        <b-form-select class="ticket-select" v-model="selected" :options="options"></b-form-select>
-        <b-button variant="outline-primary">Select</b-button>
+
+        <h6>Currency</h6>
+        <b-form-select class="ticket-select" v-model="currency" :options="price"></b-form-select>
+        <h6>Origin City</h6>
+        <b-form-select class="ticket-select" v-model="originCity" :options="options"></b-form-select>
+        <h6>Departure City</h6>
+        <b-form-select class="ticket-select" v-model="departureCity" :options="options"></b-form-select>
+        <b-button variant="outline-primary" @click='showTicket' >Select</b-button>
       </div>
 
     </BRow>
@@ -27,22 +36,51 @@
 
 
 <script>
+import { mapActions } from 'vuex';
 import TicketsList from '@/components/TicketsList'
 export default {
   name: 'TicketsPage',
   data() {
     return {
-      selected: null,
-      options: [
-        { value: null, text: '-=Choose city=-' },
-        { value: 'ROM', text: 'ROME' },
-        { value: 'LON', text: 'LONDON' },
+      originCity: null,
+      departureCity: null,
+      currency: 'USD',
+      price: [
+
+        {value: 'USD', text: 'Dollar'},
+        {value: 'EUR', text: 'Euro'},
       ]
+
     }
+  },
+  methods: {
+    ...mapActions('tickets', ['fetchTickets']),
+    showTicket() {
+      console.log('++++++',this.originCity)
+      if(this.originCity && this.departureCity) {
+        const payload = {
+          origin: this.originCity,
+          destination: this.departureCity,
+          currency: this.currency,
+        };
+        this.fetchTickets(payload);
+      }
+
+    },
   },
   components: {
     TicketsList,
   },
+  computed: {
+    options() {
+      return [
+        { value: null, text: '-=Choose city=-' },
+        { value: 'ROM', text: 'ROME', disabled: this.originCity === 'ROM' || this.departureCity === 'ROM' },
+        { value: 'LON', text: 'LONDON', disabled: this.originCity === 'LON' || this.departureCity === 'LON' },
+        { value: 'NYC', text: 'New York', disabled: this.originCity === 'NYC' || this.departureCity === 'NYC' },
+      ];
+    }
+  }
 
 }
 </script>

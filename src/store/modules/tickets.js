@@ -18,11 +18,12 @@ export default {
     },
   },
   actions: {
-    async fetchTickets({ commit }) {
+    async fetchTickets({ commit }, payload) {
+      console.log('+++++++++++',payload)
       const result = await ticketsApi.get('', {
         params: {
-          origin: 'LON',
-          destination: 'NYC',
+          origin: payload.origin,
+          destination: payload.destination,
           depart_date: '2022-12',
           return_date: '2022-12',
           currency: 'USD',

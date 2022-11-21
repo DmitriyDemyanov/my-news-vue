@@ -1,47 +1,73 @@
 <template>
   <div>
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+    <b-form @submit="onSubmit">
 
-      <div class="d-flex justify-content-between">
-      <b-form-group  id="input-group-2" label="Фамилия" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          v-model="form.lastName"
+      <BRow>
+        <div class="offset-1 col-4">
+          <b-form-group label="Фамилия" label-for="input-1">
+            <b-form-input id="input-1" v-model="form.lastName" required></b-form-input>
+          </b-form-group>
 
-          required
-        ></b-form-input>
-      </b-form-group>
+          <b-form-group label="Имя" label-for="input-2">
+            <b-form-input id="input-2" v-model="form.firstName" required></b-form-input>
+          </b-form-group>
 
-      <b-form-group id="input-group-2" label="Имя" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          v-model="form.firstName"
+          <b-form-group label="Отчество" label-for="input-3">
+            <b-form-input id="input-3" v-model="form.name" required></b-form-input>
+          </b-form-group>
 
-          required
-        ></b-form-input>
-      </b-form-group>
+          <div class="mt-3">
+            <span>Пол: {{ sexText }}</span>
+            <b-form-radio-group id="radio-group-sex" v-model="sex" name="radio-sex">
+              <div class="d-flex">
+                <b-form-radio value="man">Мужской</b-form-radio>
+                <b-form-radio value="woman" class="ml-3">Женский</b-form-radio>
+              </div>
+            </b-form-radio-group>
+          </div>
 
-      <b-form-group id="input-group-2" label="Отчество" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          v-model="form.name"
+          <div>
+            <b-form-select v-model="year" :options="years" size="sm" class="mt-3"></b-form-select>
+            <div class="mt-3">год рождения: <strong>{{ year }}</strong></div>
+          </div>
 
-          required
-        ></b-form-input>
-      </b-form-group>
+        </div>
+        <div class="offset-1 col-4">
+          <b-form-group label="Email" label-for="input-4">
+            <b-form-input id="input-4" type="email" v-model="form.email" required></b-form-input>
+          </b-form-group>
+          <b-form-group label="Tel" label-for="input-5">
+            <b-form-input id="input-5" type="number" v-model="form.tel" required></b-form-input>
+          </b-form-group>
 
-    </div>
+          <div class="mt-3">
+            <span>Беременность: {{ pregnancyText }}</span>
+            <b-form-radio-group :disabled="isMan" id="radio-group-pregnancy" v-model="pregnancy" name="radio-pregnancy">
+              <div class="d-flex">
+                <b-form-radio value="yes">Да</b-form-radio>
+                <b-form-radio value="no" class="ml-3">Нет</b-form-radio>
+              </div>
+            </b-form-radio-group>
+          </div>
 
-    <div class="mt-3">
-    <b-form-group label="Пол: {{}} " v-slot="{ ariaDescribedby }">
-      <div class="d-flex">
-        <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="some-radios" value="A">Мужской</b-form-radio>
-      <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="some-radios" value="B">Женский</b-form-radio>
-      </div>
-    </b-form-group>
+
+          <BRow class="mt-5 ">
+            <b-form-group class="col-6" label="День Цикла" label-for="input-6">
+              <b-form-input :disabled="isMan || isPregnancy" id="input-6" type="number" v-model="form.dayCycle"
+                required></b-form-input>
+            </b-form-group>
+            <b-form-group class="col-6" label="Неделя Беременности" label-for="input-7">
+              <b-form-input :disabled="isMan || !isPregnancy" id="input-7" type="number" v-model="form.weekPregnancy"
+                required></b-form-input>
+            </b-form-group>
+          </BRow>
+        </div>
 
 
-  </div>
+
+      </BRow>
+
+      <div class="wrap-doctor"></div>
 
 
       <b-button class="mt-3" type="submit" variant="primary">Submit</b-button>
@@ -54,27 +80,76 @@
 
 <script>
 export default {
-  name:'MedCenterItem',
+  name: 'MedCenterItem',
   data() {
-      return {
-        form: {
-          lastName: '',
-          firstName: '',
-          name: '',
-        },
-        show: true,
-      }
-    },
-    methods: {
-      onSubmit(event) {
-        event.preventDefault()
-        alert(JSON.stringify(this.form))
+    return {
+      form: {
+        lastName: '',
+        firstName: '',
+        name: '',
+        tel: '',
+        email: '',
+        dayCycle: '',
+        weekPregnancy: '',
       },
-     
+      sex: '',
+      pregnancy: '',
+      year: null,
+      years: [
+        { value: null, text: 'Выберите год рождения' },
+      ]
     }
+  },
+  computed: {
+    isMan() {
+
+      return this.sex !== 'woman';
+    },
+    isPregnancy() {
+      return this.pregnancy === 'yes';
+    },
+    sexText() {
+      if (this.sex === 'man') {
+        return 'Мужской';
+      }
+      if (this.sex === 'woman') {
+        return 'Женский';
+      }
+      return 'выберите пол';
+    },
+    pregnancyText() {
+      if (this.pregnancy === 'yes') {
+        return 'есть';
+      }
+      if (this.pregnancy === 'no') {
+        return 'нет';
+      }
+      return 'неизвестно';
+    }
+  },
+  methods: {
+    onSubmit(event) {
+      event.preventDefault()
+      alert(JSON.stringify(this.form))
+    },
+
+  },
+  created() {
+    const date = new Date();
+    console.log(date);
+    const year = date.getFullYear();
+    console.log(year);
+    for (let i = 0; i < 100; i++) {
+      this.years.push({ value: year - i, text: year - i });
+    }
+
+  }
 };
 
 </script>
 
 <style scoped>
+.ml-3 {
+  margin-left: 20px;
+}
 </style>
