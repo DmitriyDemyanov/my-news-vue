@@ -51,15 +51,19 @@
           </div>
 
 
-          <BRow class="mt-5 ">
-            <b-form-group class="col-6" label="День Цикла" label-for="input-6">
+          <BRow class="mt-3 ">
+            <b-form-group class="col-6" label="ДЦ" label-for="input-6">
               <b-form-input :disabled="isMan || isPregnancy" id="input-6" type="number" v-model="form.dayCycle"
                 required></b-form-input>
             </b-form-group>
-            <b-form-group class="col-6" label="Неделя Беременности" label-for="input-7">
+            <b-form-group class="col-6" label="НБ" label-for="input-7">
               <b-form-input :disabled="isMan || !isPregnancy" id="input-7" type="number" v-model="form.weekPregnancy"
                 required></b-form-input>
             </b-form-group>
+            <b-form-group label="Фамилия врача" label-for="input-8">
+            <b-form-input id="input-8" placeholder="Демьянова М.В" v-model="form.doctorName" required></b-form-input>
+          </b-form-group>
+          <span>Date: {{ dateNow }}</span>
           </BRow>
         </div>
 
@@ -91,6 +95,7 @@ export default {
         email: '',
         dayCycle: '',
         weekPregnancy: '',
+        doctorName: '',
       },
       sex: '',
       pregnancy: '',
@@ -118,13 +123,14 @@ export default {
       return 'выберите пол';
     },
     pregnancyText() {
-      if (this.pregnancy === 'yes') {
-        return 'есть';
-      }
-      if (this.pregnancy === 'no') {
-        return 'нет';
-      }
-      return 'неизвестно';
+      console.log(this.weekPregnancy)
+      return this.weekPregnancy;
+    },
+    dateNow() {
+      const date = new Date();
+      const dateNow = date.getDate();
+      console.log(dateNow);
+      return dateNow
     }
   },
   methods: {
@@ -136,14 +142,12 @@ export default {
   },
   created() {
     const date = new Date();
-    console.log(date);
     const year = date.getFullYear();
-    console.log(year);
     for (let i = 0; i < 100; i++) {
+
       this.years.push({ value: year - i, text: year - i });
     }
-
-  }
+  },
 };
 
 </script>
