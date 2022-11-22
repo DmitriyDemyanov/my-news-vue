@@ -1,13 +1,21 @@
 export default {
   namespaced: true,
   state: {
-    list : [{
-      firstname: 'Ivan',
-      lastname: 'Ivanov',
-      gender: 'man',
-    }]
+    users : [],
   },
-  getters: {},
-  mutations: {},
-  actions: {},
+  getters: {
+    usersList({ users }) {
+      return users;
+    }
+  },
+  mutations: {
+    SAVE_USER(state, user) {
+      state.users.push(user);
+    }
+  },
+  actions: {
+    addUser({ commit }, user) {
+      commit('SAVE_USER', user);
+    }
+  },
 };

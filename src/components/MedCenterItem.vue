@@ -83,6 +83,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   name: 'MedCenterItem',
   data() {
@@ -95,7 +96,7 @@ export default {
         email: '',
         dayCycle: '',
         weekPregnancy: '',
-        doctorName: '',
+        doctorName: 'Демьянова М.В',
       },
       sex: '',
       pregnancy: '',
@@ -128,15 +129,34 @@ export default {
     },
     dateNow() {
       const date = new Date();
-      const dateNow = date.getDate();
-      console.log(dateNow);
-      return dateNow
+      const dateNow = date.getDate().toString();
+      const monthNow = date.getMonth().toString();
+      const yearNow = date.getFullYear().toString();
+      const fullDate = `${dateNow}. ${monthNow}. ${yearNow}`;
+      console.log(fullDate);
+      return fullDate;
     }
   },
   methods: {
+    ...mapActions('laboratory',['addUser']),
     onSubmit(event) {
-      event.preventDefault()
-      alert(JSON.stringify(this.form))
+      event.preventDefault();
+
+      const user = {
+        lastName: this.form.lastName,
+        firstName: this.form.firstName,
+        name: this.form.name,
+        tel: this.form.tel,
+        email:this.form.email,
+        dayCycle: this.form.dayCycle,
+        weekPregnancy: this.form.weekPregnancy,
+        doctorName: this.form.doctorName,
+        sex: this.sex,
+        pregnancy: this.pregnancy,
+        year: this.year,
+      };
+      console.log(user);
+      this.addUser();
     },
 
   },
@@ -157,3 +177,5 @@ export default {
   margin-left: 20px;
 }
 </style>
+
+<!-- 259  244 === 15  cold water-->
