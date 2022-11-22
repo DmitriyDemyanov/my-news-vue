@@ -156,7 +156,7 @@ export default {
         year: this.year,
       };
       console.log(user);
-      this.addUser();
+      this.addUser(user);
     },
 
   },
